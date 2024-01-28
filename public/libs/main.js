@@ -1,6 +1,9 @@
 import JeelizResizer from "../helpers/JeelizResizer";
 import JeelizThreeHelper from "../helpers/JeelizThreeHelper";
 import JEELIZFACEFILTER from "../dist/jeelizFaceFilter.moduleES6";
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
 // some globalz:
 let THREECAMERA = null;
 console.log("Hello main");
@@ -27,20 +30,40 @@ function init_threeScene(spec) {
   const helmetLoader = new THREE.BufferGeometryLoader(loadingManager);
 
   // deprecated THREE legacy JSON format. GLTF is better now
-  helmetLoader.load("/models/helmet/helmet.json", (helmetGeometry) => {
-    const helmetMaterial = new THREE.MeshPhongMaterial({
-      map: new THREE.TextureLoader().load("/models/helmet/diffuse_helmet.jpg"),
-      reflectionRatio: 1,
-      shininess: 50,
-    });
+  // helmetLoader.load("/models/helmet/helmet.json", (helmetGeometry) => {
+  //   const helmetMaterial = new THREE.MeshPhongMaterial({
+  //     map: new THREE.TextureLoader().load("/models/helmet/diffuse_helmet.jpg"),
+  //     reflectionRatio: 1,
+  //     shininess: 50,
+  //   });
 
-    helmetMesh = new THREE.Mesh(helmetGeometry, helmetMaterial);
-    helmetMesh.scale.multiplyScalar(0.037);
-    helmetMesh.position.y -= 0.3;
-    helmetMesh.position.z -= 0.5;
-    helmetMesh.rotation.x += 0.5;
+  //   helmetMesh = new THREE.Mesh(helmetGeometry, helmetMaterial);
+  //   helmetMesh.scale.multiplyScalar(0.037);
+  //   helmetMesh.position.y -= 0.3;
+  //   helmetMesh.position.z -= 0.5;
+  //   helmetMesh.rotation.x += 0.5;
+  // });
+  let loadedModel;
+  const glftLoader = new GLTFLoader();
+  glftLoader.load("/models/shirt_baked/scene.gltf", (gltfScene) => {
+    loadedModel = gltfScene;
+    console.log({ loadedModel });
+    //   const helmetMaterial = new THREE.MeshPhongMaterial({
+    //     map: new THREE.TextureLoader().load("/models/helmet/diffuse_helmet.jpg"),
+    //     reflectionRatio: 1,
+    //     shininess: 50,
+    //   });
+
+    //   helmetMesh = new THREE.Mesh(helmetGeometry, helmetMaterial);
+    //   helmetMesh.scale.multiplyScalar(0.037);
+    //   helmetMesh.position.y -= 0.3;
+    //   helmetMesh.position.z -= 0.5;
+    //   helmetMesh.rotation.x += 0.5;
+    // gltfScene.scene.rotation.y = Math.PI / 8;
+    gltfScene.scene.position.y = -2;
+    gltfScene.scene.scale.set(8, 5, 5);
+    HELMETOBJ3D.add(gltfScene.scene);
   });
-
   const visiereLoader = new THREE.BufferGeometryLoader(loadingManager);
   visiereLoader.load("/models/helmet/visiere.json", (visiereGeometry) => {
     const visiereMaterial = new THREE.MeshStandardMaterial({
@@ -120,8 +143,7 @@ function init_threeScene(spec) {
 
   loadingManager.onLoad = () => {
     HELMETOBJ3D.add(helmetMesh);
-    HELMETOBJ3D.add(visorMesh);
-    HELMETOBJ3D.add(faceMesh);
+    // HELMETOBJ3D.add(faceMesh);
 
     addDragEventListener(HELMETOBJ3D);
 
@@ -154,14 +176,14 @@ function init_threeScene(spec) {
     });
   }
 
-  // MT216: create the frame. We reuse the geometry of the video
-  const calqueMesh = new THREE.Mesh(
-    threeStuffs.videoMesh.geometry,
-    create_mat2d(new THREE.TextureLoader().load("/images/frame_rupy.png"), true)
-  );
-  calqueMesh.renderOrder = 999; // render last
-  calqueMesh.frustumCulled = false;
-  threeStuffs.scene.add(calqueMesh);
+  // // MT216: create the frame. We reuse the geometry of the video
+  // const calqueMesh = new THREE.Mesh(
+  //   threeStuffs.videoMesh.geometry,
+  //   create_mat2d(new THREE.TextureLoader().load("/images/frame_rupy.png"), true)
+  // );
+  // calqueMesh.renderOrder = 999; // render last
+  // calqueMesh.frustumCulled = false;
+  // threeStuffs.scene.add(calqueMesh);
 
   // CREATE THE CAMERA:
   THREECAMERA = JeelizThreeHelper.create_camera();

@@ -43,11 +43,11 @@ function init_threeScene(spec) {
   //   helmetMesh.position.z -= 0.5;
   //   helmetMesh.rotation.x += 0.5;
   // });
-  let loadedModel;
+  let model;
   const glftLoader = new GLTFLoader();
-  glftLoader.load("/models/shirt_baked/scene.gltf", (gltfScene) => {
-    loadedModel = gltfScene;
-    console.log({ loadedModel });
+  glftLoader.load("/models/dress_v/Dress_V_glTF.glb", (gltf) => {
+    model = gltf.scene;
+    // console.log({ loadedModel });
     //   const helmetMaterial = new THREE.MeshPhongMaterial({
     //     map: new THREE.TextureLoader().load("/models/helmet/diffuse_helmet.jpg"),
     //     reflectionRatio: 1,
@@ -59,10 +59,15 @@ function init_threeScene(spec) {
     //   helmetMesh.position.y -= 0.3;
     //   helmetMesh.position.z -= 0.5;
     //   helmetMesh.rotation.x += 0.5;
-    // gltfScene.scene.rotation.y = Math.PI / 8;
-    gltfScene.scene.position.y = -2;
-    gltfScene.scene.scale.set(8, 5, 5);
-    HELMETOBJ3D.add(gltfScene.scene);
+    // gltf.scene.rotation.y = Math.PI / 8;
+
+    if (model) {
+      model.rotation.x -= 0.5;
+      gltf.scene.position.y = -2;
+      gltf.scene.scale.set(8, 5, 5);
+
+      HELMETOBJ3D.add(gltf.scene);
+    }
   });
   const visiereLoader = new THREE.BufferGeometryLoader(loadingManager);
   visiereLoader.load("/models/helmet/visiere.json", (visiereGeometry) => {

@@ -45,7 +45,8 @@ function init_threeScene(spec) {
   // });
   let model;
   const glftLoader = new GLTFLoader();
-  glftLoader.load("/models/dress_v/Dress_V_glTF.glb", (gltf) => {
+  // glftLoader.load("/models/shirt_baked/scene.gltf", (gltf) => {
+  glftLoader.load("/models/dress_v/Dress_V_glTF_U.glb", (gltf) => {
     model = gltf.scene;
     // console.log({ loadedModel });
     //   const helmetMaterial = new THREE.MeshPhongMaterial({
@@ -62,29 +63,29 @@ function init_threeScene(spec) {
     // gltf.scene.rotation.y = Math.PI / 8;
 
     if (model) {
-      model.rotation.x -= 0.5;
-      gltf.scene.position.y = -2;
-      gltf.scene.scale.set(8, 5, 5);
+      // model.rotation.z = 1;
+      gltf.scene.position.y = -2.5;
+      gltf.scene.scale.set(6, 4, 4);
 
       HELMETOBJ3D.add(gltf.scene);
     }
   });
-  const visiereLoader = new THREE.BufferGeometryLoader(loadingManager);
-  visiereLoader.load("/models/helmet/visiere.json", (visiereGeometry) => {
-    const visiereMaterial = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0.5,
-      side: THREE.FrontSide,
-    });
+  // const visiereLoader = new THREE.BufferGeometryLoader(loadingManager);
+  // visiereLoader.load("/models/helmet/visiere.json", (visiereGeometry) => {
+  //   const visiereMaterial = new THREE.MeshStandardMaterial({
+  //     color: 0xffffff,
+  //     transparent: true,
+  //     opacity: 0.5,
+  //     side: THREE.FrontSide,
+  //   });
 
-    visorMesh = new THREE.Mesh(visiereGeometry, visiereMaterial);
-    visorMesh.scale.multiplyScalar(0.037);
-    visorMesh.position.y -= 0.3;
-    visorMesh.position.z -= 0.5;
-    visorMesh.rotation.x += 0.5;
-    visorMesh.frustumCulled = false;
-  });
+  //   visorMesh = new THREE.Mesh(visiereGeometry, visiereMaterial);
+  //   visorMesh.scale.multiplyScalar(0.037);
+  //   visorMesh.position.y -= 0.3;
+  //   visorMesh.position.z -= 0.5;
+  //   visorMesh.rotation.x += 0.5;
+  //   visorMesh.frustumCulled = false;
+  // });
   // CREATE THE MASK
   const maskLoader = new THREE.BufferGeometryLoader(loadingManager);
   /*

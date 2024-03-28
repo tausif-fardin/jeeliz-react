@@ -208,14 +208,15 @@ function init_threeScene(spec) {
 } // end init_threeScene()
 
 // Entry point:
-// Entry point:
 function main() {
-  JeelizResizer.size_canvas({
-    canvasId: "jeeFaceFilterCanvas",
-    callback: function (isError, bestVideoSettings) {
-      init_faceFilter(bestVideoSettings);
-    },
-  });
+  if (typeof window !== "undefined") {
+    JeelizResizer.size_canvas({
+      canvasId: "jeeFaceFilterCanvas",
+      callback: function (isError, bestVideoSettings) {
+        init_faceFilter(bestVideoSettings);
+      },
+    });
+  }
 }
 
 function init_faceFilter(videoSettings) {
@@ -239,6 +240,9 @@ function init_faceFilter(videoSettings) {
     },
   }); // end JEELIZFACEFILTER.init call
 }
-window.addEventListener("load", main);
+
+if (typeof window !== "undefined") {
+  window.addEventListener("load", main);
+}
 
 export default main;

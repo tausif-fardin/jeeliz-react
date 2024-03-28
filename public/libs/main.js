@@ -48,6 +48,7 @@ function init_threeScene(spec) {
   // glftLoader.load("/models/shirt_baked/scene.gltf", (gltf) => {
   glftLoader.load("/models/dress_v/Dress_V_glTF_U.glb", (gltf) => {
     model = gltf.scene;
+    console.log(model);
     // console.log({ loadedModel });
     //   const helmetMaterial = new THREE.MeshPhongMaterial({
     //     map: new THREE.TextureLoader().load("/models/helmet/diffuse_helmet.jpg"),

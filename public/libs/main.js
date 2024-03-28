@@ -1,8 +1,8 @@
 import JeelizResizer from "../helpers/JeelizResizer";
 import JeelizThreeHelper from "../helpers/JeelizThreeHelper";
 import JEELIZFACEFILTER from "../dist/jeelizFaceFilter.moduleES6";
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import * as THREE from "../../node_modules/three/build/three.module.js";
+import { GLTFLoader } from "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js";
 
 // some globalz:
 let THREECAMERA = null;
@@ -55,8 +55,8 @@ function init_threeScene(spec) {
     //     shininess: 50,
     //   });
 
-    //   helmetMesh = new THREE.Mesh(helmetGeometry, helmetMaterial);
-    //   helmetMesh.scale.multiplyScalar(0.037);
+    // gltf = new THREE.Mesh(helmetGeometry, helmetMaterial);
+    // gltf.scene.scale.multiplyScalar(0.037);
     //   helmetMesh.position.y -= 0.3;
     //   helmetMesh.position.z -= 0.5;
     //   helmetMesh.rotation.x += 0.5;
@@ -64,7 +64,10 @@ function init_threeScene(spec) {
 
     if (model) {
       // model.rotation.z = 1;
+      // gltf.scene.position.y = -1.8;
       gltf.scene.position.y = -2.5;
+
+      // gltf.scene.scale.set(8, 4, 4);
       gltf.scene.scale.set(6, 4, 4);
 
       HELMETOBJ3D.add(gltf.scene);
@@ -122,9 +125,10 @@ function init_threeScene(spec) {
     varying float vY, vNormalDotZ;\n\
     void main() {\n\
       vec3 videoColor = texture2D(samplerVideo, vUVvideo).rgb;\n\
-      float darkenCoeff = smoothstep(-0.15, 0.05, vY);\n\
+      float darkenThreshold = -0.05;\n\
+      float darkenCoeff = step(darkenThreshold, vY);\n\
       float borderCoeff = smoothstep(0.0, 0.55, vNormalDotZ);\n\
-      gl_FragColor = vec4(videoColor * (1.-darkenCoeff), borderCoeff );\n\
+      gl_FragColor = vec4(videoColor, borderCoeff );\n\
     }";
 
       const mat = new THREE.ShaderMaterial({
@@ -149,7 +153,7 @@ function init_threeScene(spec) {
 
   loadingManager.onLoad = () => {
     HELMETOBJ3D.add(helmetMesh);
-    // HELMETOBJ3D.add(faceMesh);
+    HELMETOBJ3D.add(faceMesh);
 
     addDragEventListener(HELMETOBJ3D);
 

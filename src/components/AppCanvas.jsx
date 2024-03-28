@@ -17,7 +17,7 @@ const AppCanvas = () => {
   return (
     <div>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <canvas width="600" height="1200" id="jeeFaceFilterCanvas"></canvas>
+        <canvas width="928" height="1200" id="jeeFaceFilterCanvas"></canvas>
       </main>
     </div>
   );

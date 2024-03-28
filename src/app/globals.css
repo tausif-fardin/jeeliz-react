@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 #jeeFaceFilterCanvas {
-  z-index: 10;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-  max-height: 100%;
-  max-width: 100%;
-  height: 90%;
-  top: 40%;
-  left: 50%;
-  width: 100vmin;
-  transform: translate(-50%, -50%) rotateY(180deg);
+  z-index: 10; /* Ensure canvas appears above other elements */
+  position: absolute; /* Position canvas absolutely */
+  top: 75px; /* Adjust top position to create space below the navbar */
+  left: 50%; /* Center the canvas horizontally */
+  transform: translateX(-50%); /* Center the canvas horizontally */
+  max-height: calc(100% - 40px); /* Adjust max-height to fit remaining space */
+  max-width: 100%; /* Ensure canvas doesn't exceed the width of its container */
+  width: 90vmin; /* Adjust width based on viewport size */
+  height: 90vh;
+  /* Adjust height based on viewport size and navbar height */
+  overflow: hidden; /* Hide overflow to prevent scrolling */
 }

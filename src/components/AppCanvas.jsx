@@ -5,7 +5,6 @@ import main from "../../public/libs/main";
 
 const AppCanvas = () => {
   const [isInitialized] = useState(true);
-
   useEffect(() => {
     console.log("CALLING USE EFFECT!");
     if (typeof window !== "undefined") {

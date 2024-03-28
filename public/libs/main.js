@@ -223,16 +223,17 @@ function main() {
 function init_faceFilter(videoSettings) {
   JEELIZFACEFILTER.init({
     canvasId: "jeeFaceFilterCanvas",
-    NNCPath: "/neuralNets/", // root of NN_DEFAULT.json file
+    NNCPath: "../neuralNets/", // root of NN_DEFAULT.json file
     videoSettings: videoSettings,
     callbackReady: function (errCode, spec) {
       if (errCode) {
         console.log("AN ERROR HAPPENS. SORRY BRO :( . ERR =", errCode);
-        return;
+        // return JEELIZFACEFILTER.destroy;
       }
-
-      console.log("INFO: JEELIZFACEFILTER IS READY");
-      init_threeScene(spec);
+      if (!errCode) {
+        console.log("INFO: JEELIZFACEFILTER IS READY");
+        init_threeScene(spec);
+      }
     },
 
     // called at each render iteration (drawing loop)
